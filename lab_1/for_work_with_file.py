@@ -2,7 +2,9 @@ import json
 import logging
 
 from cryptography.hazmat.primitives import serialization
-from cryptography.hazmat.primitives.serialization import load_pem_public_key, load_pem_private_key
+
+from cryptography.hazmat.primitives.serialization import load_pem_private_key, load_pem_public_key
+
 
 class Support:
     def save_to_file(filename: str, content: str) -> None:
