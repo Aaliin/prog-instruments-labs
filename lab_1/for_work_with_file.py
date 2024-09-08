@@ -5,7 +5,7 @@ from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.serialization import load_pem_public_key, load_pem_private_key
 
 class Support:
-    def save_to_file(filename, content):
+    def save_to_file(filename: str, content: str) -> None:
         """
         Saves content to a file.
 
@@ -20,7 +20,7 @@ class Support:
             logging.error(f"Error while saving to file {filename}: {str(e)}")
 
 
-    def read_from_file(filename):
+    def read_from_file(filename: str) -> str:
         """
         Reads content from a file.
         
@@ -38,7 +38,7 @@ class Support:
             return ""
 
 
-    def read_from_json_file(filename):
+    def read_from_json_file(filename: str) -> dict:
         """
         Reads JSON data from a file.
 
@@ -56,7 +56,7 @@ class Support:
             return {}
 
 
-    def save_to_json_file(filename: str, data):
+    def save_to_json_file(filename: str, data: dict) -> None:
         """
         Saves data to a JSON file.
 
@@ -131,7 +131,7 @@ class Support:
         self.key = Support.read_bytes(path)
         return self.key
     
-    def serialize_asym_key(self, path: str, key_type: str):
+    def serialize_asym_key(self, path: str, key_type: str) -> None:
         """
         Serializes a key from a file.
 
@@ -153,7 +153,7 @@ class Support:
             else:
                 raise ValueError("Invalid key type specified")
 
-    def deserialize_asym_key(self, path: str, key_type: str):
+    def deserialize_asym_key(self, path: str, key_type: str) -> None:
         """
         Deserializes a key from a file.
 

@@ -5,7 +5,7 @@ from symmetric import Symmetric
 from for_work_with_file import Support
 
 
-def clean_text_files(file_paths: list):
+def clean_text_files(file_paths: list) -> None:
     """
         Clean files.
 

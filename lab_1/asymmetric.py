@@ -9,7 +9,7 @@ class Asymmetric:
     """
     Class for asymmetric encryption operations.
     """
-    def __init__(self):
+    def __init__(self) -> None:
         """
         Initializes the private and public keys to None.
         """

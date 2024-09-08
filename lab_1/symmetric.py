@@ -8,7 +8,7 @@ class Symmetric:
     """
     Class for symmetric encryption operations.
     """
-    def __init__(self):
+    def __init__(self) -> None:
         """
         Initializes the key to None.
         """
