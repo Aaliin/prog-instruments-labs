@@ -16,7 +16,7 @@ class Asymmetric:
         self.private_key = None
         self.public_key = None
 
-    def generate_key_pair (self)->tuple[rsa.RSAPublicKey, rsa.RSAPrivateKey]:
+    def generate_key_pair(self) -> tuple[rsa.RSAPublicKey, rsa.RSAPrivateKey]:
         """
         Generates an asymmetric key pair and serializes them to files.
 
@@ -54,4 +54,3 @@ class Asymmetric:
                                                           algorithm=hashes.SHA256(), label=None))
         else:
             raise ValueError("Invalid mode provided. Use 'encrypt' or 'decrypt'.")
- 
