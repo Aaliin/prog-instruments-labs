@@ -7,6 +7,7 @@ from cryptography.hazmat.primitives.serialization import load_pem_private_key, l
 
 
 class Support:
+    """Class for text operations."""
     def save_to_file(filename: str, content: str) -> None:
         """
         Saves content to a file.
