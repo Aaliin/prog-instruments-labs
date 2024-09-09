@@ -4,26 +4,18 @@ from cryptography.hazmat.primitives.asymmetric import rsa
 
 
 class Asymmetric:
-    """
-    Class for asymmetric encryption operations.
-    """
+    """Class for asymmetric encryption operations."""
     def __init__(self) -> None:
-        """
-        Initializes the private and public keys to None.
-        """
+        """Initializes the private and public keys to None."""
         self.private_key = None
         self.public_key = None
 
     def generate_key_pair(self) -> tuple[rsa.RSAPublicKey, rsa.RSAPrivateKey]:
         """
-        Generates an asymmetric key pair and serializes them to files.
-
-        Parameters:
-        private_key_path (str): The path to save the private key.
-        public_key_path (str): The path to save the public key.
+        Generates an asymmetric key pair and serializes them to files. 
 
         Returns:
-        None
+            tuple[rsa.RSAPublicKey, rsa.RSAPrivateKey]: tuple with generated public and private keys
         """
         keys = rsa.generate_private_key(public_exponent=65537, key_size=2048)
         self.private_key = keys
@@ -34,13 +26,13 @@ class Asymmetric:
         """
         Processes a symmetric key using asymmetric encryption.
 
-        Parameters:
-        key (bytes): The symmetric key to process.
-        key_path (str): The path to the asymmetric key.
-        operation (str): The operation to perform ('encrypt' or 'decrypt').
+        Args:
+            key (bytes): The symmetric key to process.
+            key_path (str): The path to the asymmetric key.
+            operation (str): The operation to perform ('encrypt' or 'decrypt').
 
         Returns:
-        The processed key.
+            bytes: The processed key.
         """
         if operation == 'encrypt':
             public_key = self.deserialize_key(key_path, 'public')

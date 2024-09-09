@@ -5,21 +5,17 @@ from cryptography.hazmat.primitives.ciphers import algorithms, Cipher, modes
 
 
 class Symmetric:
-    """
-    Class for symmetric encryption operations.
-    """
+    """Class for symmetric encryption operations."""
     def __init__(self) -> None:
-        """
-        Initializes the key to None.
-        """
+        """Initializes the key to None."""
         self.key = None
         
     def generate_key(self) -> bytes:
         """
         Generates a random symmetric key.
 
-        Returns:
-        bytes: The generated symmetric key.
+        Args:
+            bytes: The generated symmetric key.
         """
         self.key = os.urandom(16)
         return self.key
@@ -28,11 +24,11 @@ class Symmetric:
         """
         Pads the input text to match the block size.
 
-        Parameters:
-        text (str): The text to pad.
+        Args:
+            text (str): The text to pad.
 
         Returns:
-        bytes: The padded text.
+            bytes: The padded text.
         """
         padder = padding.PKCS7(128).padder()
         btext = bytes(text, 'UTF-8')
@@ -43,11 +39,11 @@ class Symmetric:
         """
         Removes the padding from decrypted text.
 
-        Parameters:
-        decrypted_text (bytes): The decrypted text.
+        Args:
+            decrypted_text (bytes): The decrypted text.
 
         Returns:
-        str: The unpadded text.
+            str: The unpadded text.
         """
         unpadder = padding.PKCS7(128).unpadder()
         unpadded_text = unpadder.update(decrypted_text) + unpadder.finalize()
@@ -57,13 +53,13 @@ class Symmetric:
         """
         Encrypts or decrypts text using the provided symmetric key.
 
-        Parameters:
-        text (str): The text to process.
-        key (bytes): The symmetric key.
-        mode (str): The operation mode ('encrypt' or 'decrypt').
+        Args:
+            text (str): The text to process.
+            key (bytes): The symmetric key.
+            mode (str): The operation mode ('encrypt' or 'decrypt').
 
         Returns:
-        bytes: The processed text.
+            bytes: The processed text.
         """
         if mode == 'encrypt':
             iv = os.urandom(16)

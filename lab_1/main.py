@@ -8,14 +8,14 @@ from for_work_with_file import Support
 
 def clean_text_files(file_paths: list) -> None:
     """
-        Clean files.
+    Clean files.
 
-        Parameters:
-        path (str): The path to files.
+    Args:
+        file_paths (list): The path to files.
 
-        Returns:
+    Returns:
         None
-        """
+    """
     for file_path in file_paths:
         try:
             with open(file_path, 'w') as file:
@@ -28,6 +28,17 @@ def clean_text_files(file_paths: list) -> None:
 
 
 def actions_for_generating_keys(symmetric: Symmetric, asymmetric: Asymmetric, settings: dict) -> None:
+    """
+    Performs key generation and serialization.
+
+    Args:
+        symmetric (Symmetric): A class Symmetric with written functions.
+        asymmetric (Asymmetric): A class Asymmetric with written functions.
+        settings (dict): The settings file.
+
+    Returns:
+        None
+    """
     symmetric.generate_key()
     symmetric.serialize_sym_key(settings['sym_key'])
     asymmetric.generate_key_pair()
@@ -37,6 +48,17 @@ def actions_for_generating_keys(symmetric: Symmetric, asymmetric: Asymmetric, se
 
 
 def actions_to_encrypt_symmetric_key(symmetric: Symmetric, asymmetric: Asymmetric, settings: dict) -> None:
+    """
+    Encrypts text using a symmetric algorithm.
+
+    Args:
+        symmetric (Symmetric): A class Symmetric with written functions.
+        asymmetric (Asymmetric): A class Asymmetric with written functions.
+        settings (dict): The settings file.
+
+    Returns:
+        None
+    """
     sym_key = symmetric.deserialize_sym_key(settings['sym_key'])
     if sym_key is None:
         print("Error: sym_key do not download")
@@ -47,6 +69,16 @@ def actions_to_encrypt_symmetric_key(symmetric: Symmetric, asymmetric: Asymmetri
 
 
 def actions_to_decrypt_symmetric_key(asymmetric: Asymmetric, settings: dict) -> None:
+    """
+    Performs text decryption using a symmetric algorithm.
+
+    Args:
+        asymmetric (Asymmetric): A class Asymmetric with written functions.
+        settings (dict): The settings file.
+
+    Returns:
+        None
+    """
     asym_key = Support.read_bytes(settings['encrypted_sym'])
     sym_key = asymmetric.process_symmetric_key(asym_key, settings['private_key'], 'decrypt')
     Support.write_bytes_to_txt(sym_key, settings['decrypted_sym'])
@@ -54,6 +86,16 @@ def actions_to_decrypt_symmetric_key(asymmetric: Asymmetric, settings: dict) -> 
 
 
 def actions_for_encrypting_text(symmetric: Symmetric, settings: dict) -> None:
+    """
+    Performs text encryption.
+
+    Args:
+        symmetric (Symmetric): A class Symmetric with written functions.
+        settings (dict): The settings file.
+
+    Returns:
+        None
+    """
     sym_key = symmetric.deserialize_sym_key(settings['sym_key'])
     text = Support.read_from_file(settings['original_text'])
     e_text = symmetric.process_text(text, sym_key, 'encrypt')
@@ -63,6 +105,16 @@ def actions_for_encrypting_text(symmetric: Symmetric, settings: dict) -> None:
 
 
 def actions_for_decrypting_text(symmetric: Symmetric, settings: dict) -> None:
+    """
+    Performs text decryption.
+
+    Args:
+        symmetric (Symmetric): A class Symmetric with written functions.
+        settings (dict): The settings file.
+
+    Returns:
+        None
+    """
     dec_sym_key = symmetric.deserialize_sym_key(settings['decrypted_sym'])
     text = Support.read_bytes(settings['encrypted_text'])
     dec_text = symmetric.process_text(text, dec_sym_key, 'decrypt')
