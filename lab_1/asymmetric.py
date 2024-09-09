@@ -5,6 +5,7 @@ from cryptography.hazmat.primitives.asymmetric import rsa
 
 class Asymmetric:
     """Class for asymmetric encryption operations."""
+    
     def __init__(self) -> None:
         """Initializes the private and public keys to None."""
         self.private_key = None

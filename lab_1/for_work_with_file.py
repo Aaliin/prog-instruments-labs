@@ -8,6 +8,7 @@ from cryptography.hazmat.primitives.serialization import load_pem_private_key, l
 
 class Support:
     """Class for text operations."""
+
     def save_to_file(filename: str, content: str) -> None:
         """
         Saves content to a file.
@@ -24,7 +25,6 @@ class Support:
                 file.write(content)
         except Exception as e:
             logging.error(f"Error while saving to file {filename}: {str(e)}")
-
 
     def read_from_file(filename: str) -> str:
         """
@@ -43,7 +43,6 @@ class Support:
             logging.error(f"Error while reading from file {filename}: {str(e)}")
             return ""
 
-
     def read_from_json_file(filename: str) -> dict:
         """
         Reads JSON data from a file.
@@ -60,7 +59,6 @@ class Support:
         except Exception as e:
             logging.error(f"Error while reading from file {filename}: {str(e)}")
             return {}
-
 
     def save_to_json_file(filename: str, data: dict) -> None:
         """
@@ -80,7 +78,6 @@ class Support:
         except Exception as e:
             print(
                 f"Error occurred while writing data to the file {filename}: {str(e)}")
-
 
     def write_bytes_to_txt(data: str, path: str) -> None:
         """

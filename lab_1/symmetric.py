@@ -6,10 +6,11 @@ from cryptography.hazmat.primitives.ciphers import algorithms, Cipher, modes
 
 class Symmetric:
     """Class for symmetric encryption operations."""
+
     def __init__(self) -> None:
         """Initializes the key to None."""
         self.key = None
-        
+
     def generate_key(self) -> bytes:
         """
         Generates a random symmetric key.
@@ -34,7 +35,7 @@ class Symmetric:
         btext = bytes(text, 'UTF-8')
         padded_text = padder.update(btext) + padder.finalize()
         return padded_text
-    
+
     def __unpad_data(self, decrypted_text: bytes) -> str:
         """
         Removes the padding from decrypted text.
