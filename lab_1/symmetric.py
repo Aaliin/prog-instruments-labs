@@ -36,7 +36,7 @@ class Symmetric:
             bytes: The padded text.
         """
         padder = padding.PKCS7(SAZE_BITS).padder()
-        btext = bytes(text, 'UTF-8')
+        btext = bytes(text, "UTF-8")
         padded_text = padder.update(btext) + padder.finalize()
         return padded_text
 
@@ -52,7 +52,7 @@ class Symmetric:
         """
         unpadder = padding.PKCS7(SAZE_BITS).unpadder()
         unpadded_text = unpadder.update(decrypted_text) + unpadder.finalize()
-        return unpadded_text.decode('UTF-8')
+        return unpadded_text.decode("UTF-8")
 
     def process_text(self, text: str, key: bytes, mode: str) -> bytes:
         """
@@ -66,14 +66,14 @@ class Symmetric:
         Returns:
             bytes: The processed text.
         """
-        if mode == 'encrypt':
+        if mode == "encrypt":
             iv = os.urandom(SAZE_STRING)
             cipher = Cipher(algorithms.SEED(key), modes.CBC(iv))
             encryptor = cipher.encryptor()
             encrypted_text = encryptor.update(self.__pad_data(text)) + encryptor.finalize()
             encrypted_text = iv + encrypted_text
             return encrypted_text
-        elif mode == 'decrypt':
+        elif mode == "decrypt":
             iv = text[:SAZE_STRING]
             cipher = Cipher(algorithms.SEED(key), modes.CBC(iv))
             decryptor = cipher.decryptor()

@@ -21,7 +21,7 @@ class Support:
             None
         """
         try:
-            with open(filename, 'w', encoding='utf-8') as file:
+            with open(filename, "w'", encoding="utf-8") as file:
                 file.write(content)
         except Exception as e:
             logging.error(f"Error while saving to file {filename}: {str(e)}")
@@ -37,7 +37,7 @@ class Support:
             str: The content read from the file.
         """
         try:
-            with open(filename, 'r', encoding='utf-8') as file:
+            with open(filename, "r", encoding="utf-8") as file:
                 return file.read()
         except Exception as e:
             logging.error(f"Error while reading from file {filename}: {str(e)}")
@@ -54,7 +54,7 @@ class Support:
             dict: The JSON data read from the file.
         """
         try:
-            with open(filename, 'r', encoding='utf-8') as file:
+            with open(filename, "r", encoding="utf-8") as file:
                 return json.load(file)
         except Exception as e:
             logging.error(f"Error while reading from file {filename}: {str(e)}")
@@ -72,7 +72,7 @@ class Support:
             Exception: If an error occurs while writing data to the file.
         """
         try:
-            with open(filename, 'w', encoding='utf-8') as file:
+            with open(filename, "w", encoding="utf-8") as file:
                 json.dump(data, file, ensure_ascii=False)
             print(f"Data has been successfully written to the file {filename}\n")
         except Exception as e:
@@ -91,10 +91,10 @@ class Support:
             None
         """
         try:
-            with open(path, 'wb') as file:
+            with open(path, "wb") as file:
                 file.write(data)
         except Exception as e:
-            logging.error(f'[write_bytes_to_txt]: {e}')
+            logging.error(f"[write_bytes_to_txt]: {e}")
 
     def read_bytes(path: str) -> bytes:
         """
@@ -107,10 +107,10 @@ class Support:
             bytes: The bytes data read from the file.
         """
         try:
-            with open(path, 'rb') as file:
+            with open(path, "rb") as file:
                 return file.read()
         except Exception as e:
-            logging.error(f'[read_bytes]: {e}')
+            logging.error(f"[read_bytes]: {e}")
 
     def serialize_sym_key(self, path: str) -> None:
         """
@@ -148,12 +148,12 @@ class Support:
         Returns:
             The serialized key object.
         """
-        with open(path, 'wb') as f:
-            if key_type == 'private':
+        with open(path, "wb") as f:
+            if key_type == "private":
                 f.write(self.private_key.private_bytes(encoding=serialization.Encoding.PEM,
                 format=serialization.PrivateFormat.TraditionalOpenSSL,
                 encryption_algorithm=serialization.NoEncryption()))
-            elif key_type == 'public':
+            elif key_type == "public":
                 f.write(self.public_key.public_bytes(encoding=serialization.Encoding.PEM,
                 format=serialization.PublicFormat.SubjectPublicKeyInfo))
             else:
@@ -170,12 +170,12 @@ class Support:
         Returns:
             The deserialized key object.
         """
-        with open(path, 'rb') as f:
+        with open(path, "rb") as f:
             key_bytes = f.read()
-            if key_type == 'public':
+            if key_type == "public":
                 self.public_key = load_pem_public_key(key_bytes)
                 return self.public_key
-            elif key_type == 'private':
+            elif key_type == "private":
                 self.private_key = load_pem_private_key(key_bytes, password=None)
                 return self.private_key
             else:

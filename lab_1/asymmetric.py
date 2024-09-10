@@ -35,12 +35,12 @@ class Asymmetric:
         Returns:
             bytes: The processed key.
         """
-        if operation == 'encrypt':
-            public_key = self.deserialize_key(key_path, 'public')
+        if operation == "encrypt":
+            public_key = self.deserialize_key(key_path, "public")
             return public_key.encrypt(key, padding.OAEP(mgf=padding.MGF1(algorithm=hashes.SHA256()),
                                                         algorithm=hashes.SHA256(), label=None))
-        elif operation == 'decrypt':
-            private_key = self.deserialize_key(key_path, 'private')
+        elif operation == "decrypt":
+            private_key = self.deserialize_key(key_path, "private")
             return private_key.decrypt(key, padding.OAEP(mgf=padding.MGF1(algorithm=hashes.SHA256()),
                                                           algorithm=hashes.SHA256(), label=None))
         else:
