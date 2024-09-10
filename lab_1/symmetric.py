@@ -4,6 +4,10 @@ from cryptography.hazmat.primitives import padding
 from cryptography.hazmat.primitives.ciphers import algorithms, Cipher, modes
 
 
+SAZE_STRING = 16
+SAZE_BITS = 128
+
+
 class Symmetric:
     """Class for symmetric encryption operations."""
 
@@ -18,7 +22,7 @@ class Symmetric:
         Args:
             bytes: The generated symmetric key.
         """
-        self.key = os.urandom(16)
+        self.key = os.urandom(SAZE_STRING)
         return self.key
 
     def __pad_data(self, text: str) -> bytes:
@@ -31,7 +35,7 @@ class Symmetric:
         Returns:
             bytes: The padded text.
         """
-        padder = padding.PKCS7(128).padder()
+        padder = padding.PKCS7(SAZE_BITS).padder()
         btext = bytes(text, 'UTF-8')
         padded_text = padder.update(btext) + padder.finalize()
         return padded_text
@@ -46,7 +50,7 @@ class Symmetric:
         Returns:
             str: The unpadded text.
         """
-        unpadder = padding.PKCS7(128).unpadder()
+        unpadder = padding.PKCS7(SAZE_BITS).unpadder()
         unpadded_text = unpadder.update(decrypted_text) + unpadder.finalize()
         return unpadded_text.decode('UTF-8')
 
@@ -63,17 +67,17 @@ class Symmetric:
             bytes: The processed text.
         """
         if mode == 'encrypt':
-            iv = os.urandom(16)
+            iv = os.urandom(SAZE_STRING)
             cipher = Cipher(algorithms.SEED(key), modes.CBC(iv))
             encryptor = cipher.encryptor()
             encrypted_text = encryptor.update(self.__pad_data(text)) + encryptor.finalize()
             encrypted_text = iv + encrypted_text
             return encrypted_text
         elif mode == 'decrypt':
-            iv = text[:16]
+            iv = text[:SAZE_STRING]
             cipher = Cipher(algorithms.SEED(key), modes.CBC(iv))
             decryptor = cipher.decryptor()
-            decrypted_text = decryptor.update(text[16:]) + decryptor.finalize()
+            decrypted_text = decryptor.update(text[SAZE_STRING:]) + decryptor.finalize()
             return self.__unpad_data(decrypted_text)
         else:
             raise ValueError("Invalid mode provided. Use 'encrypt' or 'decrypt'.")
