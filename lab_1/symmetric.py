@@ -70,14 +70,16 @@ class Symmetric:
             iv = os.urandom(SAZE_STRING)
             cipher = Cipher(algorithms.SEED(key), modes.CBC(iv))
             encryptor = cipher.encryptor()
-            encrypted_text = encryptor.update(self.__pad_data(text)) + encryptor.finalize()
+            encrypted_text = encryptor.update(
+                self.__pad_data(text)) + encryptor.finalize()
             encrypted_text = iv + encrypted_text
             return encrypted_text
         elif mode == "decrypt":
             iv = text[:SAZE_STRING]
             cipher = Cipher(algorithms.SEED(key), modes.CBC(iv))
             decryptor = cipher.decryptor()
-            decrypted_text = decryptor.update(text[SAZE_STRING:]) + decryptor.finalize()
+            decrypted_text = decryptor.update(
+                text[SAZE_STRING:]) + decryptor.finalize()
             return self.__unpad_data(decrypted_text)
         else:
             raise ValueError("Invalid mode provided. Use 'encrypt' or 'decrypt'.")

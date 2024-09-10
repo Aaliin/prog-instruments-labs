@@ -5,7 +5,7 @@ from cryptography.hazmat.primitives.asymmetric import rsa
 
 class Asymmetric:
     """Class for asymmetric encryption operations."""
-    
+
     def __init__(self) -> None:
         """Initializes the private and public keys to None."""
         self.private_key = None
@@ -23,7 +23,8 @@ class Asymmetric:
         self.public_key = keys.public_key()
         return (self.private_key, self.public_key)
 
-    def process_symmetric_key(self, key: bytes, key_path: str, operation: str) -> bytes:
+    def process_symmetric_key(self, key: bytes, key_path: str,
+                              operation: str) -> bytes:
         """
         Processes a symmetric key using asymmetric encryption.
 
@@ -37,11 +38,17 @@ class Asymmetric:
         """
         if operation == "encrypt":
             public_key = self.deserialize_key(key_path, "public")
-            return public_key.encrypt(key, padding.OAEP(mgf=padding.MGF1(algorithm=hashes.SHA256()),
-                                                        algorithm=hashes.SHA256(), label=None))
+            return public_key.encrypt(
+                key,
+                padding.OAEP(mgf=padding.MGF1(algorithm=hashes.SHA256()),
+                             algorithm=hashes.SHA256(),
+                             label=None))
         elif operation == "decrypt":
             private_key = self.deserialize_key(key_path, "private")
-            return private_key.decrypt(key, padding.OAEP(mgf=padding.MGF1(algorithm=hashes.SHA256()),
-                                                          algorithm=hashes.SHA256(), label=None))
+            return private_key.decrypt(
+                key,
+                padding.OAEP(mgf=padding.MGF1(algorithm=hashes.SHA256()),
+                             algorithm=hashes.SHA256(),
+                             label=None))
         else:
             raise ValueError("Invalid mode provided. Use 'encrypt' or 'decrypt'.")

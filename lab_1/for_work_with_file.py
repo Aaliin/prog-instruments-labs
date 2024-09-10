@@ -40,7 +40,8 @@ class Support:
             with open(filename, "r", encoding="utf-8") as file:
                 return file.read()
         except Exception as e:
-            logging.error(f"Error while reading from file {filename}: {str(e)}")
+            logging.error(
+                f"Error while reading from file {filename}: {str(e)}")
             return ""
 
     def read_from_json_file(filename: str) -> dict:
@@ -57,7 +58,8 @@ class Support:
             with open(filename, "r", encoding="utf-8") as file:
                 return json.load(file)
         except Exception as e:
-            logging.error(f"Error while reading from file {filename}: {str(e)}")
+            logging.error(
+                f"Error while reading from file {filename}: {str(e)}")
             return {}
 
     def save_to_json_file(filename: str, data: dict) -> None:
@@ -74,7 +76,8 @@ class Support:
         try:
             with open(filename, "w", encoding="utf-8") as file:
                 json.dump(data, file, ensure_ascii=False)
-            print(f"Data has been successfully written to the file {filename}\n")
+            print(
+                f"Data has been successfully written to the file {filename}\n")
         except Exception as e:
             print(
                 f"Error occurred while writing data to the file {filename}: {str(e)}")
@@ -150,12 +153,18 @@ class Support:
         """
         with open(path, "wb") as f:
             if key_type == "private":
-                f.write(self.private_key.private_bytes(encoding=serialization.Encoding.PEM,
-                format=serialization.PrivateFormat.TraditionalOpenSSL,
-                encryption_algorithm=serialization.NoEncryption()))
+                f.write(
+                    self.private_key.private_bytes(
+                        encoding=serialization.Encoding.PEM,
+                        format=serialization.PrivateFormat.TraditionalOpenSSL,
+                        encryption_algorithm=serialization.NoEncryption())
+                )
             elif key_type == "public":
-                f.write(self.public_key.public_bytes(encoding=serialization.Encoding.PEM,
-                format=serialization.PublicFormat.SubjectPublicKeyInfo))
+                f.write(
+                    self.public_key.public_bytes(
+                        encoding=serialization.Encoding.PEM,
+                        format=serialization.PublicFormat.SubjectPublicKeyInfo)
+                )
             else:
                 raise ValueError("Invalid key type specified")
 
@@ -176,7 +185,8 @@ class Support:
                 self.public_key = load_pem_public_key(key_bytes)
                 return self.public_key
             elif key_type == "private":
-                self.private_key = load_pem_private_key(key_bytes, password=None)
+                self.private_key = load_pem_private_key(key_bytes,
+                                                        password=None)
                 return self.private_key
             else:
                 raise ValueError("Invalid key type specified")
