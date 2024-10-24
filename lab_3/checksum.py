@@ -1,10 +1,8 @@
-import json
 import hashlib
-from typing import List
+import json
+import logging
 
-"""
-В этом модуле обитают функции, необходимые для автоматизированной проверки результатов ваших трудов.
-"""
+from typing import List
 
 
 def calculate_checksum(row_numbers: List[int]) -> str:
@@ -22,9 +20,16 @@ def calculate_checksum(row_numbers: List[int]) -> str:
     :param row_numbers: список целочисленных номеров строк csv-файла, на которых были найдены ошибки валидации
     :return: md5 хеш для проверки через github action
     """
+    '''Вычисляет md5 хеш от списка целочисленных значений
+
+    Args:
+        row_numbers(List[int]) - список целочисленных номеров невалидных строк csv-файла
+
+    Returns:
+        str - md5 хеш для проверки через github action
+    '''
     row_numbers.sort()
     return hashlib.md5(json.dumps(row_numbers).encode('utf-8')).hexdigest()
-
 
 def serialize_result(variant: int, checksum: str) -> None:
     """
@@ -38,9 +43,24 @@ def serialize_result(variant: int, checksum: str) -> None:
     :param variant: номер вашего варианта
     :param checksum: контрольная сумма, вычисленная через calculate_checksum()
     """
-    pass
+    '''Осуществляет сериализацию результатов проверки на валидность
 
+    Args:
+        variant(int) - номер варианта
+        checksum(str) - итоговый md5 хеш от невалидной суммы списка номеров строк
 
-if __name__ == "__main__":
-    print(calculate_checksum([1, 2, 3]))
-    print(calculate_checksum([3, 2, 1]))
+    Returns:
+        None
+    '''
+    try:
+        with open('lab_3\\result.json', 'w', encoding="utf-8") as f:
+            f.write(
+                json.dumps({
+                    'variant': f"{variant}",
+                    'checksum': checksum
+                },
+                           ensure_ascii=False,
+                           indent=2))
+    except Exception as ex:
+        logging.error(
+            f'An error occurred while saving: {ex.message}\n{ex.args}\n')
