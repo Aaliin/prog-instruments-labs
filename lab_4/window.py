@@ -1,17 +1,18 @@
 import os
-
-import sys
-
-from PyQt5 import QtCore
-
-from PyQt5.QtGui import QFont
-from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog
-
 import first_script
 import script_three
 import script_two
 import iterator_and_function
+import sys
+
+from PyQt5 import QtCore
+from PyQt5.QtGui import QFont
+from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog
+
+from loguru import logger
+
+logger.add(sys.stderr, format="{time:MMMM D, YYYY > HH:mm:ss} | {level} | {message}")
 
 
 class Window(QMainWindow):
@@ -142,8 +143,13 @@ class Window(QMainWindow):
         self.main_text.clear()
         directory = elem.split(",")
         print(directory[1])
-        with open(directory[1], "r", encoding="utf-8") as f:
-            text = f.read()
+        try:
+            with open(directory[1], "r", encoding="utf-8") as f:
+                text = f.read()
+        except Exception as ex:
+            logger.error(
+                f"No file with that name was found: {ex.message}\n{ex.args}\n"
+            )
         text = text.split("\n")
         spisok = []
         print(text[1])

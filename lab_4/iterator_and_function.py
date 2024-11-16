@@ -1,16 +1,26 @@
 import csv
 import os
 import re
+import sys
+
 from os.path import relpath
 from typing import Optional
+from loguru import logger
+
+logger.add(sys.stderr, level="INFO", format="{time:MMMM D, YYYY > HH:mm:ss} | {level} | {message}")
 
 
 def iterator(name: str) -> Optional[str]:
     """create a csv"""
-    names = os.listdir(os.path.join("Dataset", name))
-    for i in range(len(names)):
-        yield os.path.join("Dataset", name, names[i])  # делаем итератор
-    return None
+    try:
+        names = os.listdir(os.path.join("Dataset", name))
+        for i in range(len(names)):
+            yield os.path.join("Dataset", name, names[i])  # делаем итератор
+        return None
+    except Exception as ex:
+        logger.error(
+            f"Error when working with the directory in the iterator function: {ex.message}\n{ex.args}\n"
+        )
 
 
 class Iterator:
@@ -19,7 +29,12 @@ class Iterator:
         self.list = []
         self.way_to_file = way_to_csv_file
         self.counter = 0
-        file = open(self.way_to_file, "r")
+        try:
+            file = open(self.way_to_file, "r")
+        except Exception as ex:
+            logger.error(
+                f"Error opening the file: {ex.message}\n{ex.args}\n"
+            )
         reader = csv.reader(file, delimiter="\t")
         for row in reader:
             if str(row)[-3] == self.name_class:
