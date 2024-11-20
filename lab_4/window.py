@@ -123,7 +123,7 @@ class Window(QMainWindow):
     #  print("f")
 
     def back_click(self):
-        print("fg")
+        logger.info("fg")
         self.button_first.show()
         self.button_second.show()
         self.button_three.show()
@@ -142,7 +142,7 @@ class Window(QMainWindow):
         os.chdir(os.path.dirname(__file__))
         self.main_text.clear()
         directory = elem.split(",")
-        print(directory[1])
+        logger.info(directory[1])
         try:
             with open(directory[1], "r", encoding="utf-8") as f:
                 text = f.read()
@@ -152,7 +152,7 @@ class Window(QMainWindow):
             )
         text = text.split("\n")
         spisok = []
-        print(text[1])
+        logger.info(text[1])
 
         for element in text:
             for i in range(1, (len(element) // 100) + 1):

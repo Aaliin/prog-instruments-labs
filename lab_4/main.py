@@ -17,13 +17,11 @@ headers = {
 
 
 def main():
-    print("heum")
     if not os.path.isdir("Dataset"):
         os.mkdir("Dataset")
         os.chdir("Dataset")
         logger.info(
-            f"A directory named dataset has been created and the current working directory \\
-                has been changed to the specified one"
+            "A directory named dataset has been created and the current working directory has been changed to the specified one"
         )
         for i in range(1, 6):
             if not os.path.isdir(str(i)):
@@ -48,7 +46,7 @@ def main():
         href = []
         for item in items:
             href.append(item.get('href'))
-        print(href)
+        logger.info(href)
         # Заходим на страницу и парсим все ссылки на полные отзывы.
         time.sleep(random.randint(10, 15))
         for i in range(len(href)):
@@ -69,7 +67,7 @@ def main():
             y = min(len(authors), len(names), len(texts), len(new_quotes))
             if y == 0:
                 continue
-            print(i, y, len(authors), len(names), len(texts), new_quotes)
+            logger.info(i, y, len(authors), len(names), len(texts), new_quotes)
             x = float(new_quotes[0])
             # Сортируем отзывы по оценкам и записываем в txt файл, W+ запись и чтение(модификатор)
             if 4.5 <= x <= 5:

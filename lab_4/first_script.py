@@ -24,7 +24,6 @@ def first_script(path_dir: str)->str:
                 for dirs, folder, files in os.walk(directory):
                     for element in files:
                         writer.writerow([path_dir + "/" + element, "Dataset" + '/' + str(star) + "/" + element, star])
-        print("adf")
         logger.info(f"The file {file_name} has been processed successfully")
     except Exception as ex:
         logger.error(

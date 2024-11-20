@@ -27,7 +27,7 @@ def script_three(path_dir: str) -> str:
                     with open(os.path.join("dataset_two", element), "rb") as f:
                         text = f.read()
                     logger.info(
-                        f"The file dataset_two has been processed successfully"
+                        "The file dataset_two has been processed successfully"
                     )
                 except Exception as ex:
                     logger.error(
@@ -37,7 +37,7 @@ def script_three(path_dir: str) -> str:
                     with open(os.path.join("dataset_three", str(name) + ".txt"), "wb") as f:
                         f.write(text)
                     logger.info(
-                        f"The file dataset_three has been processed successfully"
+                        "The file dataset_three has been processed successfully"
                     )
                 except Exception as ex:
                     logger.error(

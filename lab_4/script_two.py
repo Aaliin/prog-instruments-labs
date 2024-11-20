@@ -37,7 +37,7 @@ def script_two(path_dir: str) -> str:
             content = False
             for element in pbar:
                 if content:
-                    print(element[0])
+                    logger.info(element[0])
                     os.chdir(out_directory)
                     logger.info(
                         f"The current working directory has been changed to {out_directory}"

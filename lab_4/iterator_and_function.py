@@ -51,4 +51,4 @@ class Iterator:
             return ""
 
 for i in iterator("5"):
-    print(i)
+    logger.info(i)
