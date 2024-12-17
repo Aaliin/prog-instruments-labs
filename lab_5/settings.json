@@ -1,0 +1,10 @@
+{ 
+    "initial_text": "lab_5\\text\\initial_file.txt",
+    "encrypted_text": "lab_5\\text\\encrypted_text.txt",
+    "decrypted_text": "lab_5\\text\\decrypted_text.txt",
+    "symmetric_key": "lab_5\\symmetric\\symmetric_key.txt",
+    "symmetric_encrypted_key": "lab_5\\symmetric\\encrypted_key.txt",
+    "symmetric_decrypted_key": "lab_5\\symmetric\\decrypted_key.txt", 
+    "asymmetric_public": "lab_5\\asymmetric\\public.pem",
+    "asymmetric_private": "lab_5\\asymmetric\\private.pem"
+}
